@@ -1,0 +1,81 @@
+<div class="mdc-select" style = "margin-top:3%">
+  <i class="mdc-select__dropdown-icon"></i>
+  <select class="mdc-select__native-control">
+    <option value="" disabled selected>Type of place</option>
+    <option value="library"> library </option>
+    <option value="amusement_park"> amusement park </option>
+    <option value="aquarium"> aquarium </option>
+    <option value="art_gallery"> art gallery </option>
+    <option value="casino"> casino </option>
+    <option value="gym"> gym </option>
+    <option value="museum"> museum </option>
+    <option value="night_club"> night club </option>
+    <option value="park"> park </option>
+    <option value="restaurant"> restaurant </option>
+    <option value="spa"> spa </option>
+    <option value="zoo"> zoo </option>
+    <option value="store"> store </option>
+    <option value="campground"> campground </option>
+  </select>
+  <div class="mdc-line-ripple"></div>
+</div>
+
+<button id = "searchPlace" class="mdc-button mdc-button--outlined">
+  <span class="mdc-button__label">Search</span>
+</button>
+
+<div id = "notSearched"> </div>
+<div id = "map"></div>
+
+
+<script> 
+    if (coords.latitude == 0 && coords.longitude == 0 ) {
+      $("#notSearched").append("<p> Search before viewing map</p>");
+    }
+
+    var centerlocation = {lat: parseFloat(coords.latitude), lng: parseFloat(coords.longitude)};
+    var map = new google.maps.Map(document.getElementById('map'), {zoom: 11, center: centerlocation}); 
+
+    $(document).on('click','#searchPlace',function(){
+
+      $("#map").empty();
+
+      var infowindow = new google.maps.InfoWindow();
+
+      var centerlocation = {lat: parseFloat(coords.latitude), lng: parseFloat(coords.longitude)};
+      var map = new google.maps.Map(document.getElementById('map'), {zoom: 11, center: centerlocation}); 
+     
+      var placesCoord = new google.maps.LatLng(parseFloat(coords.latitude),parseFloat(coords.longitude));
+
+      var request = {
+        location: placesCoord,
+        radius: '500',
+        type: $(".mdc-select__native-control").val()
+      };
+
+      var service = new google.maps.places.PlacesService(map);
+      service.textSearch(request, callback);
+
+      function callback(results, status) {
+      if (status == google.maps.places.PlacesServiceStatus.OK) {
+             for (var i = 0; i < results.length; i++) {
+              var place = results[i];
+              createMarker(results[i]);
+            }
+        }
+      }
+          
+      function createMarker(place) {
+        var marker = new google.maps.Marker({
+          map: map,
+          position: place.geometry.location
+        });
+
+        google.maps.event.addListener(marker, 'click', function() {
+          infowindow.setContent("<h3>" + place.name + "</h3>" + "<h5>Address: " + place.formatted_address + "</h5>");
+          infowindow.open(map, this);
+        });
+      }
+    });
+  
+</script>

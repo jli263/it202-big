@@ -1,0 +1,10 @@
+<div id = "showHistory"> </div>
+
+<script>
+  db.history.each(function(history) {
+    var p = $("<p>");
+    p.addClass("list-note");
+    p.text("Coordinate: " + history.lat + " " + history.long);
+    $("#showHistory").append(p);
+  });
+</script>

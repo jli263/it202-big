@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width">
+    <title>repl.it</title>
+    <link href="style.css" rel="stylesheet" type="text/css" />
+
+    <link href="https://unpkg.com/material-components-web@latest/dist/material-components-web.min.css" rel="stylesheet">
+
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <script src="https://unpkg.com/dexie@latest/dist/dexie.js"></script>    
+  </head>
+  <body>
+
+    <header class="mdc-top-app-bar">
+      <div class="mdc-top-app-bar__row">
+        <section class="mdc-top-app-bar__section mdc-top-app-bar__section--align-start">
+          <a href="#" class="material-icons mdc-top-app-bar__navigation-icon">menu</a>
+          <span class="mdc-top-app-bar__title">Weather and Places</span>
+        </section>
+      </div>
+    </header>
+
+    <aside class="mdc-drawer mdc-drawer--modal" data-mdc-auto-init="MDCDrawer">
+    <div class="mdc-drawer__content">
+      <nav class="mdc-list">
+        <a data-screen = "home.html" class="mdc-list-item mdc-list-item--activated" href="#" aria-current="page">
+          <i class="material-icons mdc-list-item__graphic" aria-hidden="true">search</i>
+          <span class="mdc-list-item__text">Search</span>
+        </a>
+        <a data-screen = "places.html" class="mdc-list-item" href="#">
+          <i class="material-icons mdc-list-item__graphic" aria-hidden="true">place</i>
+          <span class="mdc-list-item__text">Places</span>
+        </a>
+        <a data-screen = "map.html" class="mdc-list-item" href="#">
+          <i class="material-icons mdc-list-item__graphic" aria-hidden="true">map</i>
+          <span class="mdc-list-item__text">Map</span>
+        </a>
+        <hr class="mdc-list-divider">
+        <a data-screen = "history.html" class="mdc-list-item" href="#">
+          <i class="material-icons mdc-list-item__graphic" aria-hidden="true">history</i>
+          <span class="mdc-list-item__text">Search History</span>
+        </a>
+      </nav>
+    </div>
+  </aside>
+
+  <div class="mdc-drawer-scrim"></div>
+	<div id="contentArea">
+    <div class="mdc-top-app-bar--fixed-adjust"></div>
+    <div id="content" class="mdc-typography--body1"></div>
+  </div>
+
+  <div class="template1 mdc-card mdc-card--outlined weatherCard">
+      <h3 class = "location leftmargin5" > City, country  </h3>
+      <img src = "sun.png" class = "leftmargin5" alt="Card image" align = "left" width = 64px height = 64px> 
+      <h3 class = "currTemp" style= "margin-left:20%
+      ">Farenheit/Celcs</h3> 
+      <h4 class = "weatherConditions" style= "margin-left:20%
+      "> Conditions </h4>
+      <h3 style = "display:inline;" class = "maxTemp leftmargin5">Max Temperature </h3>
+      <h3 style = "padding-top:3%; padding-left:8%; display:inline;"  class = "minTemp leftmargin5">Min Temperature</h3> <br><br>
+      <h3 style = "display:inline;" class = "pressure leftmargin5"> pressure </h3>
+      <h3 style = "padding-left:1%; display:inline;" class = "sunRise leftmargin5"> sunrise </h3> <br><br>
+      <h3 style = "display:inline;" class = "windSpeed leftmargin5"> Wind Speed </h3>
+      <h3 style = " padding-left:14%; display:inline;" class = "sunSet leftmargin5"> sunset </h3>
+
+  </div>
+
+  <div class="template2 mdc-card mdc-card--outlined placeCardFull">
+    <h3 id = "placeName" class = "leftmargin5"> PlaceName </h3>
+    <p id = "address" class = "leftmargin5"> address </p>
+    <p id = "openNow" class= "leftmargin5"> open </p>
+    <p id = "rating" class= "leftmargin5"> rating </p>
+    <p id = "type" class= "leftmargin5"> place type </p>
+  </div>
+
+  <div class="template3 mdc-card mdc-card--outlined placeCard" >
+    <h3 id = "placeName" class = "leftmargin5"> PlaceName </h3>
+    <p id = "address" class = "leftmargin5"> address </p>
+  </div>
+	
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="https://unpkg.com/material-components-web@latest/dist/material-components-web.min.js"></script>
+
+  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCUTvN-RveYXlUHxw_Sc9gs4O7cIydtEWM&libraries=places" async defer></script>
+
+  <script src="script.js"></script>
+
+  <script>
+  	if ('serviceWorker' in navigator) {
+      navigator.serviceWorker.register('./sw.js')
+      .then(function(reg) {
+        // registration worked
+        console.log('Registration succeeded. Scope is ' + reg.scope);
+      }).catch(function(error) {
+        // registration failed
+        console.log('Registration failed with ' + error);
+      });
+    }
+  </script>
+
+  </body>
+</html>

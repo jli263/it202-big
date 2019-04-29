@@ -1,0 +1,44 @@
+<div class="mdc-text-field mdc-text-field--no-label" style = "display:inline-block ">
+  <input class="mdc-text-field__input" id = "inputInfo"
+        type="text"
+        placeholder="Enter a city or a zipcode">
+    <div class="mdc-notched-outline">
+    <div class="mdc-notched-outline__leading"></div>
+    <div class="mdc-notched-outline__notch"> </div>
+    <div class="mdc-notched-outline__trailing"></div>
+  </div>
+</div>
+
+<div class="mdc-select" style = "display:inline-block ">
+  <i class="mdc-select__dropdown-icon"></i>
+  <select class="mdc-select__native-control">
+    <option value="" disabled selected>Type of place</option>
+    <option value="library"> library </option>
+    <option value="amusement_park"> amusement park </option>
+    <option value="aquarium"> aquarium </option>
+    <option value="art_gallery"> art gallery </option>
+    <option value="casino"> casino </option>
+    <option value="gym"> gym </option>
+    <option value="museum"> museum </option>
+    <option value="night_club"> night club </option>
+    <option value="park"> park </option>
+    <option value="restaurant"> restaurant </option>
+    <option value="spa"> spa </option>
+    <option value="zoo"> zoo </option>
+    <option value="store"> store </option>
+    <option value="campground"> campground </option>
+  </select>
+  <div class="mdc-line-ripple"></div>
+</div>
+
+<br>
+<button id = "searchButton" class="mdc-button mdc-button--outlined" style = "margin-left:40%;margin-top: 2%">
+  <span class="mdc-button__label">Search</span>
+</button>
+<button id = "geoButton" class="mdc-button mdc-button--outlined" style =  "margin-top: 2%">
+  <span class="mdc-button__label">Current Location</span>
+</button>
+
+<div id = "hideMap" style="diplay:none"></div>
+<div class = "homeInfoWeather weatherCard"> </div>
+<div class = "homeInfoPlace" style= "overflow:auto; width: 40%; height: 400px; margin-left: 50%; margin-top: 3%"> </div>

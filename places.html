@@ -1,0 +1,62 @@
+<div id = "currentCoord"> </div>
+<div id = "hideMap" style="diplay:none"></div>
+<div id = "placesInfo"> </div>
+
+<script>
+
+  if (parseFloat(coords.latitude) == 0 && parseFloat(coords.longitude) == 0) {
+    $("#currentCoord").append("<p> Search before viewing places</p>");
+  } else {
+    $("#currentCoord").append("<h3> Current Coordinates: " + coords.latitude + ", " + coords.longitude);
+  }
+
+  var centerlocation = {lat: parseFloat(coords.latitude), lng: parseFloat(coords.longitude)};
+  var map = new google.maps.Map(document.getElementById('hideMap'), {zoom: 11, center: centerlocation}); 
+     
+  var placesCoord = new google.maps.LatLng(parseFloat(coords.latitude),parseFloat(coords.longitude));
+
+  var request = {
+      location: placesCoord,
+      radius: '500',
+      type: selectedOption
+  };
+
+  var service = new google.maps.places.PlacesService(map);
+  service.textSearch(request, callback);
+
+    function callback(results, status) {
+      if (status == google.maps.places.PlacesServiceStatus.OK) {
+        for (var i = 0; i < results.length; i++) {
+          
+          console.log(results[i]);
+          var clone = $(".template2").clone();
+          clone.find("#placeName").text(results[i].name);
+          clone.find("#address").text("Address: " + results[i].formatted_address);
+          console.log(results[i].open_now);
+          if (results[i].open_now == false) {
+            clone.find("#openNow").text("Currently Not Open");
+          }
+          else {
+            clone.find("#openNow").text("Currently Open");
+          }
+
+          if (results[i].rating == 0) {
+            clone.find("#rating").text("Ratings: N/A");
+          }
+          else {
+            clone.find("#rating").text("Ratings: " + results[i].rating);
+          }
+          
+          var typeOfStore = "";
+          for (var p = 0; p < (results[i].types).length; p++) {
+            typeOfStore = typeOfStore + ", " + results[i].types[p];
+          }
+          clone.find("#type").text("Type of Location: " + typeOfStore);
+          clone.removeClass("template2");
+      
+          $("#placesInfo").append(clone);
+        }
+      }
+    }
+</script>
+
